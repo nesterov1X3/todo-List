@@ -1,7 +1,15 @@
 import React from 'react'
 import classNames from 'classnames'
 
-const Task = ({ done, text, onChange, id, onDelete }) => {
+interface todoMethods {
+  done: boolean,
+  text: string,
+  onChange: (text: number) => void,
+  id: number,
+  onDelete:(text: number)=> void,
+}
+
+const Task: React.FC<todoMethods> = ({ done, text, onChange, id, onDelete }) => {
     const listItemClasses = classNames('list-item', {'list-item_done': done});
 
     return (

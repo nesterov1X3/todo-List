@@ -1,6 +1,15 @@
 const baseUrl = 'https://5f16d5d3a346a00016739644.mockapi.io/tasks/tasks';
 
-export const createTask = taskData => {
+interface taskDataProps  {
+  text: string,
+  done: boolean
+}
+
+interface task {
+  text: string,
+  _id: number
+}
+export const createTask = (taskData:taskDataProps) => {
     return fetch(baseUrl, {
         method: 'POST',
         headers: {
@@ -21,7 +30,7 @@ export const fetchTasksList = () => {
             }
         })
         .then(tasksList => {
-            return tasksList.map(({ _id, ...task }) => ({
+          return tasksList.map(({ _id, ...task }:any) => ({
                 id: _id,
                 ...task,
             }))
@@ -29,7 +38,7 @@ export const fetchTasksList = () => {
 }
 
 
-export const updatedTask = (taskId, taskData) => {
+export const updatedTask = (taskId: number, taskData:taskDataProps) => {
     return fetch(`${baseUrl}/${taskId}`, {
         method: 'PUT',
         headers: {
@@ -43,7 +52,7 @@ export const updatedTask = (taskId, taskData) => {
     });
 }
 
-export const deleteTask = taskId => {
+export const deleteTask = (taskId: number) => {
     return fetch(`${baseUrl}/${taskId}`, {
         method: 'DELETE',
     }).then(response => {
